@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 
-const MovieCard = ({ movie, isLiked, onLike, onSelect, onMouseEnter, onMouseLeave }) => {
+const MovieCard = ({ movie, isLiked, onLike, onSelect }) => {
   const colors = {
     primary: '#FF5F6D',
     secondary: '#FFC371',
@@ -13,8 +13,6 @@ const MovieCard = ({ movie, isLiked, onLike, onSelect, onMouseEnter, onMouseLeav
   return (
     <motion.div
       className="relative group perspective"
-      onMouseEnter={() => onMouseEnter(movie)}
-      onMouseLeave={() => onMouseLeave(null)}
       whileHover="hover"
       initial="rest"
       animate="rest"
@@ -115,7 +113,7 @@ const MovieCard = ({ movie, isLiked, onLike, onSelect, onMouseEnter, onMouseLeav
               className={`p-2 rounded-full transition-all duration-300 ${
                 isLiked 
                   ? 'bg-red-500/20 hover:bg-red-500/30' 
-                  : 'bg-white/10 hover:bg-white/20'
+                  : 'bg-white/10 hover:bg-white/5'
               }`}
               onClick={(e) => onLike(movie, e)}
               aria-label={isLiked ? 'Remove from favorites' : 'Add to favorites'}

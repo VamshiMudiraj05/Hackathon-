@@ -26,16 +26,15 @@ const Filters = ({
   const handleYearSelect = (event) => {
     try {
       const year = event.target.value;
-      console.log('Selecting year:', year);
       onFilterChange('year', year ? parseInt(year) : null);
-    } catch (error) {
-      console.error('Error selecting year:', error);
+    } catch {
+      // ... existing code ...
     }
   };
 
   // Log props for debugging
   useEffect(() => {
-    console.log('Filters props:', { genres, years, filters });
+    // ... existing code ...
   }, [genres, years, filters]);
 
   if (isLoading) {

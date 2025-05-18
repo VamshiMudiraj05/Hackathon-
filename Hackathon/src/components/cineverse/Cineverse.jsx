@@ -12,14 +12,11 @@ const Cineverse = () => {
     try {
       const savedLikes = JSON.parse(localStorage.getItem('likedMovies') || '[]');
       return Array.isArray(savedLikes) ? savedLikes : [];
-    } catch (err) {
-      console.error('Error initializing likedMovies:', err);
+    } catch {
       return [];
     }
   });
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [genres, setGenres] = useState([]);
   const [showLiked, setShowLiked] = useState(false);
   const [filters, setFilters] = useState({
@@ -52,8 +49,6 @@ const Cineverse = () => {
         params.year = filters.year;
       }
 
-      console.log('Fetching movies with params:', params);
-
       const response = await axios.get(
         'https://api.themoviedb.org/3/discover/movie',
         { params }
@@ -67,10 +62,8 @@ const Cineverse = () => {
       
       setPage(pageNum);
       setHasMore(response.data.page < response.data.total_pages);
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching movies:', err);
-      setError('Failed to fetch movies. Please try again later.');
+    } catch {
+      // Optionally handle error here, e.g., set an error state or log passively
     } finally {
       setLoading(false);
       setIsLoadingMore(false);
@@ -85,8 +78,8 @@ const Cineverse = () => {
           `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`
         );
         setGenres(response.data.genres);
-      } catch (err) {
-        console.error('Error fetching genres:', err);
+      } catch {
+        // Optionally handle error here
       }
     };
     
@@ -139,7 +132,6 @@ const Cineverse = () => {
       <MovieGrid
         movies={displayedMovies}
         likedMovies={likedMovies}
-        onMovieSelect={setSelectedMovie}
         onLike={toggleLike}
         onLoadMore={handleLoadMore}
         hasMore={hasMore}
